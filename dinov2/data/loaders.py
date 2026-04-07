@@ -10,7 +10,7 @@ from typing import Any, Callable, List, Optional, TypeVar
 import torch
 from torch.utils.data import Sampler
 
-from .datasets import ImageNet, ImageNet22k, HPAone, HPAFoV, CHAMMI_CP, CHAMMI_HPA, CHAMMI_WTC
+from .datasets import ImageNet, ImageNet22k, HPAone, HPAFoV, NPYCells, CHAMMI_CP, CHAMMI_HPA, CHAMMI_WTC
 from .samplers import EpochSampler, InfiniteSampler, ShardedInfiniteSampler
 
 
@@ -62,6 +62,8 @@ def _parse_dataset_str(dataset_str: str):
         class_ = HPAone
     elif name == "HPAFoV":
         class_ = HPAFoV
+    elif name == "NPYCells":
+        class_ = NPYCells
     elif name == "CHAMMI_CP":
         class_ = CHAMMI_CP
     elif name == "CHAMMI_WTC":

@@ -60,6 +60,23 @@ Training time is approximately 2 days on 4 A100 GPU nodes and the resulting chec
 
 The training code saves the weights of the teacher in the `eval` folder every 9000 iterations for evaluation.
 
+### Training on a custom 4-channel NumPy dataset
+
+If your unlabeled microscopy data is stored as a single NumPy array with shape `[N, 4, H, W]`
+(for example `2000 x 4 x 128 x 128`), you can train Cell-DINO directly from that file:
+
+```shell
+PYTHONPATH=. python dinov2/run/train/train.py \
+  --config-file dinov2/configs/train/cell_dino/vitl16_npy128.yaml \
+  --output-dir <PATH/TO/OUTPUT/DIR> \
+  train.dataset_path=NPYCells:split=ALL:root=<PATH/TO/DATA.npy>
+```
+
+Notes:
+- `root` must point to the `.npy` file itself.
+- The array must have 4 channels.
+- The provided config is tuned for `128x128` crops (`vitl16_npy128.yaml`).
+
 ## Evaluation
 
 The training code regularly saves the teacher weights. In order to evaluate the model, run the following evaluation on a single node:
